@@ -1,0 +1,190 @@
+---
+title: "Homework 3"
+author: "Darnell Chen"
+date: "2024-09-14"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 3.3.6
+
+***a)***\
+$P(X \leq 0) = f(0) = 0.17$\
+$P(X \leq 2) = f(0) + f(2) = 0.17 + 0.35 = 0.52$\
+$P(X \leq 3) = f(0) + f(2) + f(3) = 0.17 + 0.35 + 0.33 = 0.85$\
+$P(X \leq 4) = f(0) + f(2) + f(3) + f(4) = 0.17 + 0.35 + 0.33 + 0.17 = 1$
+
+$$ 
+F(x) = 
+\begin{cases} 
+0 & \text{if } x < 0 \\
+0.17 & \text{if } 0 \leq x < 2 \\
+0.52 & \text{if } 2 \leq x < 3 \\
+0.85 & \text{if } 3 \leq x < 3 \\
+1 & \text{if } x \geq 2 
+\end{cases} 
+$$
+
+***b)***\
+
+$$
+\begin{aligned}
+Mean &= \sum_{x=0}^{4}x\cdot f(x)\\
+&= 0(0.17) + 2(0.35) + 3(0.33) + 4(0.15)\\
+&= 2.29
+\end{aligned}
+$$
+
+```{r}
+0*.17+2*.35+3*.33+4*.15
+```
+
+$$
+\begin{aligned}
+Variance &= [ \sum_{x}^4 x^2f(x)] - E[X]^2\\
+&= 0^2(0.17) + 2^2(0.35) + 3^2(0.33) + 4^2(0.15) - 2.29^2\\
+&= 1.5259
+\end{aligned}
+$$
+
+```{r}
+(0.17 * 0**2) + (0.35 * 2**2) + (0.33 * 3**2) + (0.15 * 4 ** 2) - (2.29 ** 2)
+```
+
+$~$
+
+## 3.4.3
+
+We first need to find the mean, variance, and standard deviation for $X$.\
+
+$$
+\begin{aligned}
+mean ~of~ X = E[X] &= \sum_{x=0}^{9} x \cdot f(x)\\
+&= \frac{a+b}{2}, where~a=upper~bound~and~b=lower~bound\\
+&= \frac{9+0}{2}\\
+&= 4.5
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+variance~ of~ X = V[X] &= E[X^2] - (E[X])^2\\
+&= \frac{(b - a + 1)^2-1}{12}\\
+&= \frac{(9-0+1)^2-1}{12}\\
+&= \frac{100}{12}\\
+&= 8.25
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+Standard~Deviation~of~X &= \sigma \\
+&= \sqrt{\sigma^2}\\
+&= \sqrt{8.25}\\
+&\approx 2.872281
+\end{aligned}
+$$
+
+```{r}
+(9 + 0)/2
+(((9 - 0 + 1)**2)-1)/12
+sqrt(8.25)
+```
+
+Then using X, we can calculate the Mean, Variance, and Standard Deviation of $Y = 5X$:
+
+Mean of Y = $E[5X]$ = $5E[X]$ = $5 \cdot 4.5$ = 22.5\
+Variance of Y = $V[5X]$ = $25\cdot V[X]$ = $25 \cdot 8.25$ = 206.25\
+Standard Dev. of Y = $\sqrt{\sigma^2}$ = $\sqrt{206.25}$ $\approx$ 14.36141
+
+```{r}
+5 * 4.5
+25 * 8.25
+sqrt(206.25)
+```
+
+$~$
+
+## 3.5.13
+
+***a)***\
+$$
+\begin{aligned}
+P(X \leq 120) &= 1 - P(X \geq 121)\\
+&= 1 - \sum_{x=121}^{125} \binom{125}{x}(0.9)^x(0.1)^{125-x}\\
+&\approx 1 - 0.003858595\\
+&\approx 0.9961414
+\end{aligned}
+$$
+
+```{r}
+pbinom(120, 125, 0.9)
+```
+
+***b)*** $P(X = 0) = \binom{125}{0}0.9^0(0.1)^{125} = 1 \times 10^{125}$
+
+```{r}
+dbinom(0, 125, 0.9)
+```
+
+$~$
+
+## 3.6.6
+
+***a)*** PMF = $f(x_i)$ = $(0.8)^{x_i}(0.2)$\
+***b)*** f(2) = 1 - [P(X=0) + P(X=1)] = 1 - $[0.8\cdot 0.2 + 0.2]$ = 0.64\
+***c)*** E[X] = $\frac{1}{p}$ = $\frac{1}{0.8}$ = 1.25\
+***d)*** $$
+\begin{aligned}
+P(X \geq 3) &= 1-[P(X=0) + P(X=1)+P(X=2)]\\
+&= 1 - [(0.8^00.2 + 0.8^10.2+0.8^20.2)]\\
+&= 1 - 0.488\\
+&= 0.512
+\end{aligned}
+$$
+
+```{r}
+1 - 0.8*0.2 - 0.2
+1/0.8
+1 - ((0.2*0.8**0)+(0.2*0.8**1)+(0.2*0.8**2))
+```
+
+$~$
+
+## 3.6.13
+
+***a)*** $P(X=2)$ = $\binom{10-1}{2-1} \cdot (0.8)^{8}(0.2)^2$ $\approx$ 0.06039798
+
+***b)*** $P(X \leq 2)$ = $\binom{4-1}{2-1}$ $\cdot$ $(0.8)^{2}(0.2)^2$ + $\binom{3-1}{2-1}$ $\cdot (0.8)^{1}(0.2)^2$ + $\binom{2-1}{2-1}$ $(0.8)^0(0.2)^2$ = 0.1808
+
+***C)*** $E[X=3]$ = $\frac{r}{p}$ = $\frac{3}{0.2}$ = 15
+
+```{r}
+dnbinom(8, 2, 0.2)
+
+pnbinom(2, 2, 0.2)
+
+3/0.2
+```
+
+$~$\
+
+## 3.7.6
+
+***a)*** P(X=6) = $\frac{\binom{6}{6} \binom{34}{0} }{\binom{40}{6}}$ $\approx$ $2.605266 \times 10^{-7}$
+
+***b)*** P(X=5) = $\frac{\binom{6}{5} \binom{34}{1}}{\binom{40}{6}}$ $\approx$ $5.314742 \times 10^{-5}$
+
+***c)*** P(X=4) = $\frac{\binom{6}{4} \binom{34}{2}}{\binom{40}{6}}$ $\approx$ 0.002192331
+
+***d)*** $\frac{1}{P(X=6)}$ = $\frac{1}{\frac{\binom{6}{6} \binom{34}{0} }{\binom{40}{6}}}$ = 3838380
+
+```{r}
+choose(6, 6) * choose(34, 0) / choose(40, 6)
+choose(6, 5) * choose(34, 1) / choose(40, 6)
+choose(6, 4) * choose(34, 2) / choose(40, 6)
+1 / (choose(6, 6) * choose(34, 0) / choose(40, 6))
+```
