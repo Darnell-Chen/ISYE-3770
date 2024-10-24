@@ -1,0 +1,305 @@
+---
+title: "Homework 4"
+author: "Darnell Chen"
+date: "2024-09-27"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 3.8.12
+
+***a)*** Let $X$ be the number of visits in a day. $X$\~$Poisson(\lambda T) = Poisson(1.8)$\
+$$
+\begin{aligned}
+P(X > 5) &= 1 - P(X \leq 5) \\
+&= 1-[P(X=5)+P(X=4)+P(X=3)+P(X=2)+P(X=1)+P(X=0)] \\
+&= 0.01037804
+\end{aligned}
+$$
+
+***b)*** Let $Y$ be the number of visits in a week. $Y$\~$Poisson(\lambda T) = Possion(1.8 \times 7)$\
+$$
+\begin{aligned}
+P(Y < 5) &= P(4) + P(3) + P(2) + P(1) + P(0)\\
+&= \frac{e^{-12.6}12.6^4}{4!} + \frac{e^{-12.6}12.6^3}{3!} + \frac{e^{-12.6}12.6^2}{2!} +\frac{e^{-12.6}12.6^1}{1!} + \frac{e^{-12.6}12.6^0}{0!}\\
+& \approx 0.004979028
+\end{aligned}
+$$
+
+***c)*** We want to find how many days it would take for $P(Z \geq 1) \geq 0.99$ where $Z$ is the number of visits in $x \in \mathbf{Z}$ days. We'll first solve for $P(Z \geq 1)$ = 0.99:
+
+$$
+\begin{aligned}
+P(Z \geq 1) &= 0.99\\
+1 - P(0) &= 0.99\\
+1 - \frac{e^{-\lambda \cdot x} (\lambda \cdot x)^0}{0!} &= 0.99\\
+e^{-\lambda \cdot x} &= -0.01\\
+e^{-\lambda \cdot x} &= 0.01\\
+\lambda \cdot x &= \ln(0.01)\\
+x &= \frac{\ln(0.01)}{\lambda} \text{  , where $\lambda = 1.8$}\\
+x & \approx 2.558427
+\end{aligned}
+$$
+
+Since Poisson takes discrete numbers / whole numbers, we'll round $x$ up to 3 days.\
+Hence, it'll take atleast 3 days such that the probability of atleast one visit is 99%.
+
+***d)*** Let X be the number of visits per day, then $X\sim Pois(\lambda T)$. We want to find $P(X > 5) = 0.1$ which is equivalent to:\
+$1 - [P(X=0) + P(X = 1) + P(X = 2) +  P(X = 3)+P(X = 4)+ P(X = 5)] = 0.01$
+
+And we solve for the following, where $\lambda t = \mu$:\
+$1 - [\frac{e^{-\mu}\mu^0}{0!} + \frac{e^{-\mu}\mu^1}{1!} + \frac{e^{-\mu}\mu^2}{2!} + \frac{e^{-\mu}\mu^3}{3!} + \frac{e^{-\mu}\mu^4}{4!} + \frac{e^{-\mu}\mu^5}{5!}] =0.1$
+
+```{r}
+1 - ppois(5, 1.8)
+ppois(4, 12.6)
+1 - ppois(0, 1.8 * 3)
+```
+
+$~$
+
+## 4.1.2
+
+***a)*** P(X\<2) = $\int_1^2 \frac{2}{x^3}dx =
+\frac{2x^{-2}}{-2} \mid_1^2 = -[\frac{1}{x^2} \mid_1^2] = \frac{3}{4} = 0.75$
+
+***b)*** P(X\>5) = $1 - \int_1^5 \frac{2}{x^3}dx = 1 - [\frac{-1}{x^2} \mid_2^5] = 1+[\frac{1}{25} - 1] = \frac{1}{25}$
+
+***c)*** P(4 \< X \< 8) $\int_4^8 \frac{2}{x^3}dx = \frac{-1}{x^2} \mid_4^8 = - [\frac{1}{64} - \frac{1}{16}] = \frac{3}{64}$
+
+***d)*** P(X \< 4 or X \> 8) = $1 - (4 < X < 8) = 1- \int_4^8 \frac{2}{x^3}dx = 1 - (- \frac{1}{x^2} \mid_4^8) = 1+(\frac{1}{64} - \frac{1}{16}) = 1 - \frac{3}{64} = \frac{61}{64}$
+
+***e)*** Let $x$ be the value such that F(X \< x) = 0.95
+
+$$
+\begin{aligned}
+\int_1^x \frac{2}{t^3}dt &= 0.95\\
+\frac{-1}{t^2} \mid _1^x &= 0.95\\
+\frac{-1}{x^2} + 1 &= 0.95\\
+\frac{1}{x^2} &= 0.05\\
+\frac{1}{x^2} &= \frac{5}{100}\\
+\frac{1}{x^2} &= \frac{1}{20}\\
+x &= \sqrt{20}
+\end{aligned}
+$$
+
+## 4.1.2 Extras
+
+***a)*** CDF for $x > 1$ = $P(X \leq x) = \int_1^x \frac{2}{t^3}dt = \frac{-1}{t^2} \mid_1^x = \frac{-1}{x^2} + 1$
+
+***b)*** $\mu = \int_1^\infty xf(x)dx = \int_1^\infty x \cdot \frac{2}{x^3}dx = \int_1^{\infty} \frac{2}{x^2}dx = \frac{-2}{x} \mid_1^{\infty} = \frac{-2}{\infty} - \frac{-2}{1} = 0+2 = 2$
+
+***c)*** $\sigma^2 = E[X^2] - E[X]^2 = \int_1^{\infty} x^2f(x)dx - 2^2 = \int_1^\infty x^2 \cdot \frac{2}{x^3}dx - 4= \int_1^\infty\frac{2}{x}dx - 4 = 2ln(x) \mid_1^\infty - 4 = \infty$
+
+$~$
+
+## 4.4.2
+
+***a)*** CDF for $0.95 < x < 1.05$ = $\int_{0.95}^{x} \frac{1}{(1.05-0.95)}dt = \int_{0.95}^{x}10dt = 10t \mid_{0.95}^{x} = 10x - 10(0.95)$
+
+We then get:\
+$$
+F(x) =
+\begin{cases}
+    0, & \text{if } x < 0.95 \\
+    10x - 10(0.95), & \text{if } 0.95 \leq x \leq 1.05 \\
+    1, & \text{if } x > 1.05
+\end{cases}
+$$
+
+***b)*** $P(X > 1.02) = \int_{1.02}^{1.05} \frac{1}{1.05-0.95}dx = 10x \mid_{1.02}^{1.05} = 10.5-10.2 = 0.3$
+
+***c)*** let $a$ be the lower bound of 0.95, and $b$ be the upper bound of 1.05. To find the thickness exceeded by 90% of flanks, we just need to find where P(X \< x) = 1 - 0.9. Since our probability is uniform, we can simply get the values of the lower 10% range and add it to the lower bound.Thus we get:\
+
+0.95 + 0.1(1.05-0.95) = $1.02(0.1 \cdot 0.1)$ = 0.95 + 0.01 = 0.96\
+
+***d)***\
+$\mu = \frac{b + a}{2} = \frac{1.05 + 0.95}{2} = \frac{2}{2} = 1$\
+$\sigma ^2 = \frac{(b-a)^2}{12} = \frac{0.1^2}{12} \approx 0.000833333333333$
+
+$~$
+
+## 4.5.6
+
+***a)***$X\sim N(260, 50^2)$\
+
+We want to find P(X\>4\*60) = P(X \> 240). In order to do this, we'll first find Z, where $Z\sim N(0, 1)$:\
+
+Z = $\frac{X-\mu}{\sigma} = \frac{240-260}{50} = \frac{-20}{50} = \frac{-2}{5} = -0.4$
+
+$P(X > 240) = P(Z > -0.4) = P(Z < 0.4) = 0.6554$
+
+***b)*** We can use the z-score of the first and third quartile:\
+
+The z-score for the third quartile (75%) is approximately 0.67, which we will then convert to the cumulative distribution of the problem:\
+
+$$
+\begin{aligned}
+Z &= \frac{X-\mu}{\sigma}\\
+0.67 &= \frac{X-260}{50}\\
+33.5 &= X-260\\
+293.5 &= X
+\end{aligned}
+$$ We can also do the same to find our first quartile, who's z-score is just the negative of the third quartile. Hence, Z = -0.67:\
+
+$$
+\begin{aligned}
+Z &= \frac{X-\mu}{\sigma}\\
+-0.67 &= \frac{X-260}{50}\\
+-33.5 &= X-260\\
+226.5 &= X
+\end{aligned}
+$$ Thus, the first quartile (25%) has a battery life of 226.5 minutes while the third quartile (75%) has a battery life of 293.5 minutes.
+
+***c)*** Looking at our z-table, we see that the z-score with 95% probability is approximately $1.64$. We will take $Z=-1.64$ since we're looking for the battery life that is surpassed with 95% probability, while 1.64 gives us the value surpassed by 5%. We will convert -1.64 to our current distribution where $X\sim N(260, 50^2)$:\
+
+$$
+\begin{aligned}
+Z &= \frac{X - \mu}{\sigma}\\
+-1.64 &= \frac{X-260}{50}\\
+-82 &= X - 260\\
+178 &= X
+\end{aligned}
+$$ Thus, the value that is surpassed by 95% of battery lives is approximately 178 minutes.
+
+```{r}
+1 - pnorm(240, 260, 50)
+pnorm(293.5, 260, 50)
+pnorm(226.5, 260, 50)
+pnorm(178, 260, 50)
+```
+
+$~$
+
+## 4.5.12
+
+***a)*** $X \sim N(310, 45^2)$ (units are in millions of gallons). We want to find when P(X \> 350). Thus, we'll just find 1 - P(X \< 350). But first, we'll convert our distribution to a standardized distribution $Z\sim N(0, 1)$:\
+
+$$
+\begin{aligned}
+Z &= \frac{X-\mu}{\sigma}\\
+Z &= \frac{350-310}{45}\\
+Z &= \frac{40}{45}\\
+Z &\approx 0.888889
+\end{aligned}
+$$
+
+Then $P(Z < 0.89) = 0.81327$, and $1 - P(Z < 0.89) = 0.18673$. Thus, the probability that a day requires more water than what's stored in the city reservoir is 18.673%.
+
+***b)*** We will need to find where $P(X < x) = 0.99$. The z-score for 99% probability in a standard normal distribution is $\approx 2.33$. Then we'll convert from standard $Z\sim N(0, 1)$ to $X\sim N(310, 45^2)$.
+
+$$
+\begin{aligned}
+Z &= \frac{X-\mu}{\sigma}\\
+2.33 &= \frac{X-310}{45}\\
+104.85 &= X - 310\\
+414.85 &= X
+\end{aligned}
+$$ Thus, the city will need a reservoir capacity of 414.85 million gallons in order for the probability of it being exceeded to be 1%.
+
+***c)*** We need to find where $P(Z < z) = 0.05$. The z-score for 0.95 is $\approx  1.64$, thus we'll our z-score will need to convert $x = -1.65$ to the distribution where $X \sim N(310, 45^2):$
+
+$$
+\begin{aligned}
+Z &= \frac{X - \mu}{\sigma}\\
+-1.65 &= \frac{X-310}{45}\\
+-74.25 &= X-310\\
+235.75 &= X
+\end{aligned}
+$$ Thus, the amount of water needed for water use to be exceeded with 95% probability is 235.75 million gallons.
+
+***d)*** We want to find the mean when $P(X > 350) = 0.01$ where $X\sim N(310, 45^2)$. This is equivalent to finding when $P(X < 350) = 0.99$. The z-score in the standard normal distribution for 0.99 is approximately 2.33:
+
+$$
+\begin{aligned}
+Z &= \frac{X - \mu}{\sigma}\\
+2.33 &= \frac{350 - \mu}{45}\\
+104.85 &= 350 - \mu \\
+245.15 &= \mu
+\end{aligned}
+$$ Since we're looking for consumption per person, we'll get $\frac{245.15}{1.4} \approx 175.10714$. Thus, the mean daily consumption per person will need to be approximately 175.10714 gallons.
+
+$~$
+
+## 4.7.5
+
+***a)*** Let $Y$ be the number of calls in 30 minutes, then $Y \sim Pois(2)$:\
+$P(Y = 0) = e^{-2} \approx 0.135335$
+
+***b)*** Let $X$ be the number of calls in 10 minutes, then $X \sim Pois(\frac{2}{3})$. We want to find $P(X \leq 1)$:\
+$P(Z \leq 1) = 1 - P(Z > 1) = 1 - e^{\lambda t} = 1 - e^{\frac{2}{3}} \approx 0.48658$
+
+***c)*** $P(\frac{1}{3} \leq X \leq \frac{2}{3}) = F(\frac{2}{3}) - F(\frac{1}{3}) = (1-e^{-2/3}) - (1-e^{-1/3}) = 0.203114$
+
+***d)*** We're trying to find when F(t) = 0.9 since F(t) gives the probability of a call within a certain time interval:
+
+$$
+\begin{aligned}
+F(t) &= 0.9\\
+P(X \leq t) &= 0.9\\
+1 - e^{-\lambda t} &= 0.9\\
+-e^{-\lambda t} &= -0.1\\
+e^{-\lambda t} &= 0.1\\
+-\lambda t &= ln(0.1)\\
+\lambda t &= -ln(0.1)\\
+t &= \frac{-ln(0.1)}{\lambda}\\
+t &= \frac{-ln(0.1)}{\frac{1}{15}}, \text{let } \lambda \text{ be 1/15 since its the rate per minute}\\
+t &\approx 34.538776
+\end{aligned}
+$$
+
+Thus, the time interval would have to be approx. 34.538776 minutes in order for the probability of at least one call in interval to be 0.90.
+
+```{r}
+dpois(0, 2)
+1 - dpois(0, 2/3)
+(1 - dpois(0, 2/3)) - (1 - dpois(0, 1/3))
+qexp(0.9, 1/15)
+```
+
+$~$
+
+## 4.7.11
+
+***a)*** Let Y be the number of calls in 30 minutes, then $Y\sim Pois(3)$. We want to find $P(X \leq 3)$. This will be equivalent to 1 - [P(0) + P(1) + P(2) + P(3)] since we're subtracting the probability of getting 3 or less calls in half an hour:
+
+$P(0) = \frac{e^{-\lambda t}{(\lambda t)^0}}{0!} = e^{-3}$\
+$P(1) = \frac{e^{-\lambda t}{(\lambda t)^1}}{1!} = 3e^{-3}$\
+$P(2) = \frac{e^{-\lambda t}{(\lambda t)^2}}{2!} = \frac{9e^{-3}}{2}$\
+$P(3) = \frac{e^{-\lambda t}{(\lambda t)^3}}{3!} = \frac{27e^{-3}}{6}$\
+
+$1 - [P(0) + P(1) + P(2) + P(3)] \approx 0.3527681$
+
+Thus the probability of getting more than 3 calls per half hour is approximately 0.3528.
+
+***b)*** We're trying to find P(X \> 1) = P(N=0):\
+$P(X>1) = e^{-\lambda t} = e^{-3} \approx 0.0498$
+
+***c)*** We're solving for $P(X = 0) = 0.01$ where $X$ is the number of calls in 1 hr, thus $X \sim Pois(6)$:
+
+$$
+\begin{aligned}
+P(X = 0) &= 0.01\\
+e^{-\lambda x} &= 0.01\\
+-\lambda x &= ln(0.01)\\
+x &= \frac{ln(0.01)}{-\lambda}\\
+x &= \frac{ln(0.01)}{-6}\\
+x &\approx 0.76753
+\end{aligned}
+$$ Thus, the $x$ hours required for the probability of no calls to be 0.01 is $x=0.76753$ hours.
+
+***d)*** We're looking for P(X \> 2) where t=2 and X is time between calls. This is equivalent to $P(N=0)$, where N is the number of calls in 2 hours, and $N \sim Pois(12)$:\
+$P(X > 2) = P(N=0) = e^{-12} \approx 0.0000061442123$
+
+Thus, the probability that we get no call in 2 hours is 0.0000061442123.
+
+```{r}
+1 - (dpois(3, 3) + dpois(2, 3) + dpois(1, 3) + dpois(0, 3))
+dpois(0, 3)
+qexp(0.99, 2*3)
+dpois(0, 6*2)
+
+```

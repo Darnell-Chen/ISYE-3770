@@ -23,8 +23,8 @@ F(x) =
 0 & \text{if } x < 0 \\
 0.17 & \text{if } 0 \leq x < 2 \\
 0.52 & \text{if } 2 \leq x < 3 \\
-0.85 & \text{if } 3 \leq x < 3 \\
-1 & \text{if } x \geq 2 
+0.85 & \text{if } 3 \leq x < 4 \\
+1 & \text{if }    4 \leq x
 \end{cases} 
 $$
 
@@ -124,10 +124,12 @@ $$
 pbinom(120, 125, 0.9)
 ```
 
-***b)*** $P(X = 0) = \binom{125}{0}0.9^0(0.1)^{125} = 1 \times 10^{125}$
+***b)*** $1 - P(X \geq 119) = 1 - \sum_{x=119}^{125} \binom{125}{x}0.9^x0.1^{125-x} \approx 0.9717376$
+
+Here, I'm assuming that 'empty seats' means 2 or more seats are empty, rather than all seats being empty or only 1 seat being empty.
 
 ```{r}
-dbinom(0, 125, 0.9)
+pbinom(118, 125, 0.9)
 ```
 
 $~$

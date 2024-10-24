@@ -1,0 +1,49 @@
+---
+title: "3770 HW6"
+author: "Darnell Chen"
+date: "2024-10-23"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Problem 6.1.6
+
+The sample mean of our data set can be calculated by adding all our values and dividing by the sample size:\\
+
+$\bar{x} = \sum_{i=1}^n x_i \approx 14.35895$
+
+On the other hand, our standard deviance is simply the squareroot of our variance $s^2$:
+
+$s^2 = \frac{\sum_{i=1}^n (x_i - \mu)^2}{n-1} \approx 356.4716$\\
+$s = \sqrt{s^2} = \sqrt{356.4716} \approx 18.88045$
+
+Thus, we get a mean of approx. 14.35895 and a standard deviation of approx. 18.88045.
+
+```{r}
+times = read.table("6-8.txt", header = TRUE)
+times = times$time
+
+mean(times)
+
+var(times)
+sqrt(var(times))
+```
+
+## Problem 6.1.6
+
+```{r}
+rating = read.table("6-30.txt", header = TRUE)
+rating = rating$Rating
+
+rating = sort(rating)
+rating
+
+quantiles = quantile(rating,type=6)
+quantiles
+
+stem(rating)
+```
+

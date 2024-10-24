@@ -1,0 +1,197 @@
+---
+title: "Homework 5"
+author: "Darnell Chen"
+date: "2024-10-03"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 5.1.4
+
+***a)*** $f_{XY}(xy) = \frac{\binom{30}{x} \binom{10}{y} \binom{60}{4-x-y}}{\binom{100}{4}}$, where $x + y \leq 4$ $$
+\begin{array}{|c|c|c|c|c|c|c|}
+\hline
+X & Y & Z & \text{Moderate} & \text{High} & \text{Low} & f_{XY}(x, y) \\
+\hline
+0 & 0 & 4 & 30 & 10 & 60 & 0.124357822 \\
+1 & 0 & 3 & 30 & 10 & 60 & 0.261805941 \\
+2 & 0 & 2 & 30 & 10 & 60 & 0.196354456 \\
+3 & 0 & 1 & 30 & 10 & 60 & 0.062123444 \\
+4 & 0 & 0 & 30 & 10 & 60 & 0.006988887 \\
+0 & 1 & 3 & 30 & 10 & 60 & 0.087268647 \\
+1 & 1 & 2 & 30 & 10 & 60 & 0.135416866 \\
+2 & 1 & 1 & 30 & 10 & 60 & 0.066560832 \\
+3 & 1 & 0 & 30 & 10 & 60 & 0.010353907 \\
+0 & 2 & 2 & 30 & 10 & 60 & 0.02031253 \\
+1 & 2 & 1 & 30 & 10 & 60 & 0.02065681 \\
+2 & 2 & 0 & 30 & 10 & 60 & 0.004992062 \\
+0 & 3 & 1 & 30 & 10 & 60 & 0.001836161 \\
+1 & 3 & 0 & 30 & 10 & 60 & 0.00091808 \\
+0 & 4 & 0 & 30 & 10 & 60 & 5.35547E-05 \\
+\hline
+\end{array}
+$$
+
+***b)***
+
+$$
+\begin{array}{|c|c|}
+\hline
+x & \text{f}_X(x) \\
+\hline
+0 & 0.233828714 \\
+1 & 0.418797697 \\
+2 & 0.267907350 \\
+3 & 0.072477351 \\
+4 & 0.006988887 \\
+\hline
+\end{array}
+$$
+
+***c)***
+
+$$
+\begin{aligned}
+E[X] &= \sum_x x \cdot f_X(x)\\
+&= (0 \cdot f_X(0)) +  (1 \cdot f_X(1)) + (2 \cdot f_X(2)) + (3 \cdot f_X(3)) + (4 \cdot f_X(4))\\
+&\approx 0.418798 + 2(0.267907) + 3(0.072477) + 4(0.006989)\\
+&= 1.2
+\end{aligned}
+$$
+
+***d)***
+
+$$
+\begin{array}{|c|c|c|}
+\hline
+y & f_{XY}(3, y) & f_{Y|3}(y)\\
+\hline
+0 & 0.062123444 & 0.857142857 \\
+1 & 0.010353907 & 0.142857143 \\
+\hline
+\end{array}
+$$
+
+***e)*** $E[ Y \mid X=3 ] = \sum_y y \cdot f_{Y|X=3}(y) = (0 \times f_{Y|X=3}(0)) + (1 \times f_{X|Y=3}(1)) = 1 \times 0.142857 = 0.142857$
+
+***f)*** $V[ Y \mid X=3 ] = [ ~ \sum_y y^2 \cdot f_{Y|X=3}(y)~ ] - \mu ^2 = (0^2 \times f_{Y|X=3}(0)) + (1^2 \times f_{X|Y=3}(1)) - 0.142857^2 = 0.142857 - 0.142857^2 \approx 0.122448$
+
+***g)*** They are not independent.\
+Take for example, $f_{XY}(0, 0) = f_X(0) \cdot f_Y(0)$. Here, $f_{XY}(0, 0) \approx 0.124358$, whereas $f_X(0) \cdot f_Y(0) \approx 0.2338287 \cdot 651630549 \approx 0.15237$. Since $0.124358 \neq 0.15237$, it means that X and Y are not independent.
+
+$~$
+
+## 5.1.9
+
+We can find c by solving $\int_0^3 \int_0^3 cxy~dxdy = 1,$ for which we get c = $\frac{4}{81}$
+
+***a)*** $\int_0^3 \int_0^2 \frac{4xy}{81}~dxdy = \frac{4}{9}$
+
+***b)*** We first find $f_{X}(x) = \int_0^3 \frac{4xy}{81} dy = \frac{2x}{9}$. Then we will find $P(X<2.5)$:\
+$~ ~ ~ ~$ $\int_0^{2.5}f_X(x)~dx = \int_0^{2.5} \frac{2x}{9}~dx = \frac{2}{9} [\frac{x^2}{2} \mid_0^{2.5}] = \frac{2}{9} \cdot \frac{5}{2}^2 \cdot \frac{1}{2} = \frac{25}{36}$
+
+***c)*** We first find $f_{Y}(y) = \int_0^3 \frac{4xy}{81} dx = \frac{2y}{9}$. Then we will find $P(1<Y<2.5)$:\
+$~ ~ ~ ~$ $\int_1^{2.5}f_Y(y)~dy = \int_0^{2.5} \frac{2y}{9}~dy = \frac{2}{9} [\frac{y^2}{2} \mid_1^{2.5}] = \frac{2}{9}[\frac{5}{2}^2 \cdot \frac{1}{2} - \frac{1}{2}] = \frac{21}{36}$
+
+***d)*** $P(X > 1.8, 1 < Y < 2.5) = \int_1^{2.5} \int_{1.8}^3 \frac{4xy}{81}~dxdy \approx 0.37333$
+
+***e)*** $E[X] = \int_0^3 x\cdot f_X(x)~dx = \int_0^3 \frac{2x^2}{9} ~dx = 2$
+
+***f)*** Since the probability of \$X \< 0 \$is equal to 0, $P(X < 0, Y < 4) = 0$. This is because PDF is constrained to $0 < X < 3$ and $0 < Y < 3$. We're basically solving for $\int_0^3 \int_0^0 \frac{4xy}{81} ~ dxdy$, where the inner integral is equal to 0. Thus, the whole integral is $=0$.
+
+***g)*** $f_{X}(x) = \int_0^3 \frac{4xy}{81} dy = \frac{2x}{9}$ for $0<x<3$.
+
+$~$
+
+## 5.4.2
+
+To get value of c, we solve: $\sum_x \sum_y f_{XY}(x, y) = 1$ which is equal to $\sum_x \sum_y c(x+y) = 1$. From here we solve:
+
+$$
+\begin{aligned}
+1 &= \sum_x \sum_y c(x+y)\\
+&= c[(1+1)+(1+2)+(1+3)+(2+1)+...+(3+2)+(3+3)]\\
+&= c[6(1) + 6(2) + 6(3)]\\
+&= c(36)\\
+\frac{1}{36} &= c
+\end{aligned}
+$$ To find $Cov(X, Y)$ we will look for $E[XY]-\mu_x \mu_y$:
+
+$$
+\begin{aligned}
+E[XY] &= \sum_y \sum_x cxy(x+y)\\
+&= c[1(1+1) + 2(1+2) + 3(1+3) + 2(2+1) + 4(2+2) + 6(2+3) + 3(3+1) + 6(3+2) + 9(3+3)]\\
+&= c[2 + 6 + 12 + 6 + 16 + 30 + 12 + 30 + 54]\\
+&= \frac{1}{36} (168)\\
+&\approx 4.6667
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+f_X(x) &= \sum_y cy(x+y)\\
+&= c[(x+1) + (x+2) + (x+3)]\\
+&= \frac{1}{36} (3x+6)\\
+&= \frac{x+2}{12}
+~\\
+~\\
+\mu_x &= \sum_x x\cdot f_X(x)\\
+&= \sum_x x\cdot (\frac{x+2}{12})\\
+&= (\frac{1+2}{12}) + 2(\frac{2+2}{12}) + 3(\frac{3+2}{12})\\
+&= \frac{3}{12} + \frac{8}{12} + \frac{15}{12}\\
+&= \frac{26}{12}\\
+&= \frac{13}{6}
+\end{aligned}
+$$
+
+$\mu_y$ is also $\frac{13}{6}$ since it covers the same range with the same relation in $f_{XY}(x, y)$.
+
+Thus we get: $Cov(X, Y) = E(XY) - \mu _x \mu _y = \frac{168}{36}- (\frac{13}{6})^2 = \frac{168}{36} - \frac{169}{36} = \frac{-1}{36} \approx -0.0277778$.
+
+To find correlation, we will solve $\rho_{XY} = \frac{\sigma_{XY}}{\sigma_X \sigma_Y}$. Since we already have $sigma_{XY}$, we will simply be finding $\sigma_X$ and $\sigma_Y$:
+
+$$
+\begin{aligned}
+\sigma_X &= Cov(X)\\
+&= \sqrt{V(X)}\\
+&= \sqrt{[\sum_x x^2 f_X(x)] - \mu_X^2}\\
+&= \sqrt{[\sum_x x^2 \frac{x+2}{12}] - \mu_X^2}\\
+&= \sqrt{\frac{3}{12} + 4(\frac{4}{12}) + 9(\frac{5}{12}) - \mu_X^2}\\
+&= \sqrt{\frac{3}{12}+ \frac{16}{12} + \frac{45}{12} - \frac{13}{6}^2}\\
+&= \sqrt{\frac{64}{12} - \frac{169}{36}}\\
+&= \sqrt{ \frac{23}{36} }\\
+& \approx 0.799305253885
+\end{aligned}
+$$
+
+$\sigma_X = \sigma_Y$ since the two equations have the same bound and the equation $f_{XY}(x, y)$ is parallel.
+
+We then get: $\rho_{XY} = \frac{\frac{-1}{36}}{\sqrt{\frac{23}{36}}^2} \approx -0.04347826$
+
+In summary: $c = \frac{1}{36}$ , $\sigma_{XY}= \frac{-1}{36}$ and $\rho_{XY} \approx -0.04347826$
+
+$~$
+
+## 5.4.6
+
+To find E[X] and E[Y] we will need to find $f_X(x)$ and $f_Y(x)$:
+
+$$
+\begin{aligned}
+f_X(x) &= \int_0^\infty e^{-x-y} ~dy\\
+&= e^{-x} \int_0^\infty e^{-y} dy\\
+&= e^{-x} [-e^{-y} \mid_0^\infty]\\
+&= e^{-x}\\
+\end{aligned}
+$$ We can use the above equation to also show $f_Y(x) = e^{-y}$ by simply swapping the x's and y's. Thus we will get $f_{XY}(x, y) = e^{-x-y} = f_X(x) \cdot f_Y(y)$. This means that X and Y are independent random variables. This also means that $E[XY] = E[X]\cdot E[Y]$, meaning that $\sigma_{XY} = E[XY] - E[X]E[Y] = E[XY] - E[XY] = 0$.
+
+Thus $\sigma_{XY} = Cov(X, Y) = 0$.
+
+As for the correlation $\rho_{XY} = \frac{\sigma_{XY}}{\sigma_X \sigma_Y}$, we have already proven that $\sigma_{XY}$ = 0. Hence, $\frac{\sigma_{XY}}{\sigma_X \sigma_Y} = \frac{0}{\sigma_X \sigma_Y} = 0$.
+
+Thus, our correlation $\rho_{XY} = 0$.
+
+In summary: $\sigma_{XY}=0$ and $\rho_{XY} = 0$
