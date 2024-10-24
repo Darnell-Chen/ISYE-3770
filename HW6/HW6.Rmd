@@ -17,7 +17,7 @@ $\bar{x} = \sum_{i=1}^n x_i \approx 14.35895$
 
 On the other hand, our standard deviance is simply the squareroot of our variance $s^2$:
 
-$s^2 = \frac{\sum_{i=1}^n (x_i - \mu)^2}{n-1} \approx 356.4716$\\
+$s^2 = \frac{\sum_{i=1}^n (x_i - \mu)^2}{n-1} \approx 356.4716$\
 $s = \sqrt{s^2} = \sqrt{356.4716} \approx 18.88045$
 
 Thus, we get a mean of approx. 14.35895 and a standard deviation of approx. 18.88045.
@@ -32,18 +32,79 @@ var(times)
 sqrt(var(times))
 ```
 
-## Problem 6.1.6
+$~$
+
+\pagebreak
+## Problem 6.2.4
+
+The two middle numbers in our data set are both 90.4. Since $\frac{90.4 + 90.4}{2} = 90.4$, our median is thus, 90.4.
 
 ```{r}
 rating = read.table("6-30.txt", header = TRUE)
 rating = rating$Rating
 
-rating = sort(rating)
-rating
-
-quantiles = quantile(rating,type=6)
-quantiles
-
-stem(rating)
+median(rating)
 ```
 
+Our Quartiles:
+```{r}
+quantiles = quantile(rating,type=6)
+quantiles
+```
+Our Stem and Leaf Plot:
+```{r}
+stem(rating, scale = 2)
+```
+
+$~$
+
+\pagebreak
+## Problem 6.3.2
+
+Our Histogram:
+
+```{r}
+bin=seq(min(rating),max(rating),by=(max(rating)-min(rating))/8)
+freqs = hist(rating, breaks=bin, label=TRUE, right=FALSE, col=rainbow(8), ylim=c(0, 32))
+freqs
+```
+
+Our Frequency Table:
+```{r}
+str=NULL
+for (i in 1:7) {
+  str = c(str, paste(freqs$breaks[i], "$\\le x < $", freqs$breaks[i+1]))
+}
+
+# Handle the last interval with inclusive bounds
+str = c(str, paste(freqs$breaks[8], "$\\le x \\le $", freqs$breaks[9]))
+
+df = data.frame(Class=str, Index=freqs$counts)
+library(knitr)
+library(kableExtra)
+kable(df, "latex", align="c", escape = F, caption="Hint") %>%
+kable_styling(latex_options = "hold_position")
+```
+
+$~$
+
+\pagebreak
+## Problem 6.4.9
+
+Based on my boxplot below, I think it's hard to definitively tell if the treatment is effective or not in gene expression. Because while it does have the smallest range - and practically no outliers - there's still a ton of difference in variance between the control groups. However, the variance and outliers in the High Dosage group itself definitely displayed a much smaller range compared to the other groups. So if I had to choose a definitive answer, I'd say that the high dosage treatment definitely helped in minimizing gene expression.
+```{r}
+treatmentData = read.table("6-81.txt", header=TRUE)
+attach(treatmentData)
+boxplot(Expression~Group, col=rainbow(10))
+```
+$~$
+
+\pagebreak
+## Problem 6.7.2
+
+Based on the normal distribution line below, it would be reasonable to assume that the octane rating follows a normal distribution. This is because most of our ratings/points follow the expected normal distribution line.
+
+```{r}
+qqnorm(rating)
+qqline(rating, col="red")
+```
