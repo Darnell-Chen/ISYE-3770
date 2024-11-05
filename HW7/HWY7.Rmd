@@ -1,0 +1,155 @@
+---
+title: "Homework 7"
+author: "Darnell Chen"
+date: "2024-11-04"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Problem 7.2.6
+
+$\sigma_{\bar{X}} = \frac{\sigma}{\sqrt{n}} = \frac{1.5}{7}$
+
+***a)*** $z = \frac{X-\mu}{\sigma_{\bar{X}}} = \frac{10 - 8.2}{\frac{1.5}{7}} = 8.4$
+
+$P(Z < 8.4) \approx 1$ since the z-score is so high.
+
+Thus, the probability that the average time waiting in line is less than 10 minutes is approximately 1.
+
+***b)*** $z = \frac{X-\mu}{\sigma_{\bar{X}}} = \frac{5 - 8.2}{\frac{1.5}{7}} \approx -14.9333$
+
+$P(-14.933 < X < 8.4) = P(X < 8.4) -P(X > -14.933) \approx 1-0 = 1$
+
+Thus, the probability that the average time waiting in line between 5 and 10 minutes is approximately 1.
+
+***c)*** $z = \frac{X-\mu}{\sigma_{\bar{X}}} = \frac{6 - 8.2}{\frac{1.5}{7}} \approx -10.267$
+
+$P(Z < -10.267) \approx 4.979314 \times 10^{-25} \approx 0$
+
+Thus, the probability that the average waiting time in line is less than 6 minutes is approximately 0.
+
+```{r}
+pnorm(10, mean=8.2, sd=(1.5/7))
+pnorm(10, mean=8.2, sd=(1.5/7)) - pnorm(5, mean=8.2, sd=(1.5/7))
+pnorm(6, mean=8.2, sd=(1.5/7))
+```
+
+$~$
+
+## Problem 7.3.7
+
+***a)*** $\hat{\theta} = \frac{425+431+416+419+421+436+418+410+431+433+423+426+410+435+436+428+411+426+409+437+422+428+413+416}{24} \approx 423.33$
+
+***b)*** $S = \sqrt{S^2} = \sqrt{\frac{\sum_{i=0}^{24}(X_i - \bar{X})^2}{n-1}} = \sqrt{\frac{(425-423.33)^2 + (431-423.33)^2 + ... + (413-423.33)^2 + (416-423.33)^2}{23}} \approx \sqrt{82.49275} \approx 9.082552$
+
+***c)*** $\hat{\sigma_{\bar{X}}} = \frac{S}{\sqrt{n}} = \sqrt{\frac{S^2}{n}} \approx \sqrt{\frac{82.49275}{24}} \approx 1.853968$
+
+***d)*** $\frac{423 + 425}{2} = 424$
+
+***e)*** $\frac{7}{24}$ Notably, the following thicknesses are larger than 430: 431 431 433 435 436 436 437
+
+```{r}
+data <- c(425, 431, 416, 419, 421, 436, 418, 410, 431, 433, 423, 426, 410, 435, 436, 428, 411, 426, 409, 437, 422, 428, 413, 416)
+mean(data)
+sqrt(var(data))
+sqrt(var(data)/length(data))
+sort(data)
+median(data)
+```
+
+$~$
+
+## Problem 7.3.9
+
+***a)*** 
+$$
+\begin{aligned}
+E[\bar{X_1} - \bar{X_2}] &= E[\bar{X_1}] - E[\bar{X_2}]\\
+&= E[\frac{X_{1, 1} + X_{1, 2} + ..... + X_{1, n_1}}{n_1}] - E[\frac{X_{2, 1} + X_{2, 2} + ..... + X_{2, n_2}}{n_2}]\\
+&= \frac{1}{n_1}E[X_{1, 1} + X_{1, 2} + ..... + X_{1, n_1}] - \frac{1}{n_2}E[X_{2, 1} + X_{2, 2} + ..... + X_{2, n_1}]\\
+&= \frac{1}{n_1}(\mu_1 + \mu_1 + ... + \mu_1) - \frac{1}{n_2}(\mu_2 + \mu_2 + ... + \mu_2)\\
+&= \frac{1}{n_1}n_1\mu_1 - \frac{1}{n_2}n_2\mu_2\\
+&= \mu_1 - \mu_2
+\end{aligned}
+$$
+
+***b)***
+$$
+\begin{aligned}
+\sigma_{\bar{X}} &= \sqrt{V(\bar{X_1} -\bar{X_2})}\\
+&= \sqrt{V(\bar{X_1})+V(\bar{X_2})}\\
+&= \sqrt{V(\frac{X_{1, 1} + X_{1, 2} + .... + X_{1, n_1}}{n_1}) + V(\frac{X_{2, 1} + X_{2, 2} + .... + X_{2, n_2}}{n_2})}\\
+&= \sqrt{\frac{1}{n_1^2}V(X_{1, 1} + X_{1, 2} + .... + X_{1, n_1}) + \frac{1}{n_2^2}V(X_{2, 1} + X_{2, 2} + .... + X_{2, n_1})}\\
+&= \sqrt{\frac{1}{n_1^2}(\sigma^2_1 + \sigma^2_1 + ... + \sigma^2_1) + \frac{1}{n_2^2}(\sigma^2_2 + \sigma^2_2 + ... + \sigma^2_2)}\\
+&= \sqrt{\frac{1}{n_1^2}n_1\sigma^2_1 + \frac{1}{n_2^2}n_2\sigma_2^2}\\
+&= \sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}
+\end{aligned}
+$$
+
+***c)*** For an unbiased estimator $E[s^2_P] = \sigma^2$ has to be true:
+
+$$
+\begin{aligned}
+E[S^2_p] &= E[\frac{(n_1 - 1)S^2_1 +(n_2-1)S_2^2}{n_1 + n_2 -2}]\\
+&= E[\frac{(n_1 - 1)S^2_1}{n_1 + n_2 -2}] + E[\frac{(n_2-1)S_2^2}{n_1 + n_2 -2}]\\
+&= \frac{n_1 - 1}{n_1 + n_2 -2}E[S_1^2] + \frac{n_2-1}{n_1 + n_2 -2}E[S^2_2]\\
+&= \frac{n_1 - 1}{n_1 + n_2 -2}\sigma^2 + \frac{n_2-1}{n_1 + n_2 -2}\sigma^2\\
+&= \frac{n_1 + n_2 - 2}{n_1 + n_2 -2} \sigma^2\\
+&= \sigma^2
+\end{aligned}
+$$
+Since $E[S_p^2] = \sigma^2$, it is thus an unbiased estimator of $\sigma^2$.
+
+## Problem 7.3.11
+***a)*** We know that $X_1$ and $X_2$ represent the sample of students who own an Apple Computer at ASU and VT respectively, while $n_1$ and $n_2$ are the respective sample sizes. Thus, we know that the probability of choosing a student who owns an Apple computer at the two schools are $\frac{X_1}{n_1}$ and $\frac{X_2}{n_2}$ respectively. To show this is unbiased estimator for $p_1 - p_2$ we can take its expected value:
+
+$$
+\begin{aligned}
+E[\frac{X_1}{n_1} - \frac{X_2}{n_2}] &= E[\frac{X_1}{n_1}] - E[\frac{X_2}{n_2}]\\
+&= \frac{1}{n_1}E[X_1]-\frac{1}{n_2}E[X_2]\\
+&= \frac{1}{n_1}n_1p_1-\frac{1}{n_2}n_2p_2 ~~~~~\text{,This comes from mean in binomial distribution}\\
+&= p_1 - p_2\\
+\end{aligned}
+$$
+Since $E[\frac{X_1}{n_1} - \frac{X_2}{n_2}] = p_1 - p_2$, it is therefore an unbiased estimator.
+
+***b)***
+$$
+\begin{aligned}
+\sigma &= \sqrt{V(\frac{X_1}{n_1} - \frac{X_2}{n_2})}\\
+&= \sqrt{V(\frac{X_1}{n_1}) +V(\frac{X_2}{n_2})}\\
+&= \sqrt{\frac{1}{n_1^2}V(X_1) + \frac{1}{n_2^2}V(X_2)}\\
+&= \sqrt{\frac{1}{n_1^2}n_1p_1(1-p_1) + \frac{1}{n_2^2}n_2p_2(1-p_2)} ~~~~\text{, np(1-p) is variance of binom. distribution}\\
+&= \sqrt{\frac{p_1(1-p_1)}{n_1}+\frac{p_2(1-p_2)}{n_2}}
+\end{aligned}
+$$
+
+***c)*** Since we know that $p_1 = \frac{X_1}{n_1}$ and $p_2 = \frac{X_2}{n_2}$ from part (a), we can thus plug them into the equation we got from part (b):\\
+
+$$
+\begin{aligned}
+\sqrt{\frac{\frac{X_1}{n_1}(1-\frac{X_1}{n_1})}{n_1}+\frac{\frac{X_2}{n_2}(1-\frac{X_2}{n_2})}{n_2}} &= \sqrt{\frac{\frac{X_1}{n_1}-\frac{X_1^2}{n_1^2}}{n_1}+\frac{\frac{X_2}{n_2}-\frac{X_2^2}{n_2^2}}{n_2}}\\
+&= \sqrt{X_1 - X_1^2 + X_2-X^2_2}
+\end{aligned}
+$$
+
+Thus we get: $\sqrt{X_1 - X_1^2 + X_2-X^2_2}$, where we can simply plug in our values $X_1$ and $X_2$.
+
+***d)*** $\hat{\theta} = \frac{X_1}{n_1} - \frac{X_2}{n_2} = \frac{150}{200} - \frac{185}{250} = 0.01$.\\
+Our point estimate for $p_1 - p_2$ is thus $0.01$.
+
+***e)***
+$$
+\begin{aligned}
+\hat{\sigma} &= \sqrt{\frac{p_1(1-p_1)}{n_1}+\frac{p_2(1-p_2)}{n_2}}\\
+&= \sqrt{\frac{0.75(1-0.75)}{200} + \frac{0.74(1-0.74)}{250}}\\
+&\approx \sqrt{0.0009375 + 0.0007696}\\
+&= 0.0017071
+\end{aligned}
+$$
+
+## Problem 7.4.1
+We know that the function for geometric distribution is: $f(x) = P(X=x) = p(1-p)^{x-1}$ for $x \in \mathbb{Z^+}$
