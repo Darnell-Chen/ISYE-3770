@@ -1,0 +1,118 @@
+---
+title: "HW8"
+author: "Darnell Chen"
+date: "2024-11-11"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 8.1.1
+
+***a)*** A $z$-score of 2.14 occurs when the lower tail is 0.9838 and the upper tail is 0.0162. Thus our confidence level is simply $1 - 2(0.0162) = 0.9676$.
+
+***b)*** Since $\bar{x} - 2.49 \frac{\sigma}{\sqrt{x}}$
+
+***c)*** A z-score of $1.85$ has a lower tail probability of 0.9678 and upper tail of 0.0322. Thus our confidence level is simply $1-2(0.0322) = 0.9356$.
+
+***d)*** The z-score of $2.00$ has a lower tail probability of 0.9772 and upper tail probability of 0.0228. However, since we only need to exclude the upper tail probability from out interval, our confidence interval is just 0.9772
+
+***e)*** The z-score of $1.96$ has a lower tail probability of 0.9750 and upper tail probability of 0.0250. However, since only need to exclude the lower tail probability, our confidence interval only consist of the range below the mean, which is just 0.9750
+
+## 8.1.5
+
+***a)*** A $99%$ CI from the sample data would be longer since it would cover a larger range of numbers (i.e. outliers).
+
+***b)*** Yes, the statement is correct. The confidence interval is the probability that the mean $\mu$ is between the the upper and lower bounds of the interval. Here, our given interval is bound between 0.49 and 0.89, thus, the statement is correct.
+
+***c)*** This answer is correct since a 95% CI means that the sample mean would typically fall into the CI 95% of the time. This means if we were to take 1000 means and 1000 CIs of 95%, then approximately 950 of those means would fall into that interval, since each once has a 95% chance of being in the CI.
+
+## 8.1.7
+
+$\bar{x} = 74.036,~ \sigma = 0.001, ~n=15$
+
+***a)***
+
+A two-sided confidence interval of 99% means $\alpha = 0.01$, thus we're looking for:\
+$\bar{x} - z_{0.005}\frac{\sigma}{\sqrt{n}} \leq \mu \leq \bar{x} + z_{0.005}\frac{\sigma}{\sqrt{n}}$
+
+where:\
+$z_{0.005} \approx 2.58$
+
+And plugging in our known values, we get:\
+
+$$
+\begin{aligned}
+\bar{x} \pm z_{0.005}\frac{\sigma}{\sqrt{n}} &= 74.036 \pm 2.58\frac{0.001}{\sqrt{15}}\\
+&= 74.036 \pm 0.000666153135548
+\end{aligned}
+$$
+
+Thus our two-sided interval with 99% CI is $[74.0353338469, 74.0366661531]$
+
+***b)*** $z_{0.01} \approx 2.33$, where our subscript interval is 0.01 because it's a single-sided bound.
+
+And lower confidence bound is only looking for where $\bar{x} - z_{0.01}\frac{\sigma}{\sqrt{n}} \leq \mu$, thus we get the following:
+
+$$
+\begin{aligned}
+\bar{x} - z_{0.01}\frac{\sigma}{\sqrt{n}} &= 74.036 - 2.33\frac{0.001}{\sqrt{15}}\\
+&= 74.036 - 0.000601603413111\\
+&= 74.0353983966
+\end{aligned}
+$$ So our lower confidence bound is $[74.0353983966, \infty]$.
+
+Compared to part (a), our lower bound here is larger since it's compensating for a 1% probability of missing on the lower bound rather than a 0.5% chance.
+
+## 8.2.10
+
+***a)*** We can test to see if the data is normally distributed by using a QQ-Plot or the Anderson Darling test (both shown below). In our QQ-Plot, most of the data follow our normal line, thus proving that the speed up of CNN is normal. Also, our p-value from the Anderson-Darling test is significant enough for the data to be considered normal.
+
+```{r}
+speedups <- c(3.775302, 3.350679, 4.217981, 4.030324, 4.639692,
+              4.139665, 4.395575, 4.824257, 4.268119, 4.584193,
+              4.930027, 4.315973, 4.600101)
+
+qqnorm(speedups)
+qqline(speedups, col = "blue")
+
+library(nortest)
+ad.test(speedups)
+```
+
+***b)*** The mean and standard deviation of our data is:\\
+
+$$
+\begin{aligned}
+\bar{x} &= \frac{\sum_{i=0}^n x_i}{n}\\
+&= \frac{56.071888}{13}\\
+&\approx 4.313222
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+\sigma &= \sqrt{\frac{\sum_{i=0}^n (x_i - \bar{x})}{n-1}}\\
+&= \sqrt{\frac{2.2478}{12}}\\
+&\approx 0.4328017
+\end{aligned}
+$$
+A two-sided confidence interval of 95% means we're looking at $z_{0.025} = 1.96$. So we get:
+
+$$
+\begin{aligned}
+\bar{x} \pm z_{0.025}\frac{\sigma}{\sqrt{n}} &= 4.313222 \pm 1.96\frac{0.4328017}{\sqrt{13}}\\
+&= 4.313222 \pm 0.235273684158
+\end{aligned}
+$$
+
+Thus, our 95% CI is $[4.07794831584, 4.54849568416]$.
+
+***c)*** A single-sided confidence interval of 95% means we're looking at $z_{0.05} = 1.64$.
+
+```{r}
+mean(speedups)
+sd(speedups)
+```

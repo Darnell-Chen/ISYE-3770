@@ -60,10 +60,81 @@ Our Stem and Leaf Plot:
 stem(rating, scale = 2)
 ```
 
-$~$
+```{=tex}
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|l|c|}
+\hline
+\textbf{Value} & \textbf{Digits}       & \textbf{Frequency} \\ \hline
+83  & 4             & 1  \\ \hline
+84  & 33            & 2  \\ \hline
+85  & 3             & 1  \\ \hline
+86  & 777           & 3  \\ \hline
+87  & 456789        & 6  \\ \hline
+88  & 23334556679   & 11 \\ \hline
+89  & 0233678899    & 10 \\ \hline
+90  & 0111344456789 & 13 \\ \hline
+91  & 0001112256688 & 13 \\ \hline
+92  & 22236777      & 8  \\ \hline
+93  & 023347        & 6  \\ \hline
+94  & 2247          & 4  \\ \hline
+95  &               & 0  \\ \hline
+96  & 15            & 2  \\ \hline
+97  &               & 0  \\ \hline
+98  & 8             & 1  \\ \hline
+99  &               & 0  \\ \hline
+100 & 3             & 1  \\ \hline
+\end{tabular}
+\end{table}
+```
 
 \pagebreak
 
+<<<<<<< HEAD
+=======
+$~$
+
+$~$
+
+$~$
+
+$~$
+
+$~$
+
+$~$
+
+$~$
+
+$~$
+
+$~$
+
+$~$
+
+$~$
+
+$~$
+
+$~$
+
+$~$
+
+$~$
+
+$~$
+
+$~$
+
+$~$
+
+$~$
+
+$~$
+
+
+
+>>>>>>> 5b4146ed09155bdef06b4ece52c098b7217fb2f9
 ## Problem 6.3.2
 
 Our Histogram:
@@ -83,11 +154,24 @@ str = c(str, paste(freqs$breaks[i], "$\\le x < $", freqs$breaks[i+1]))
 }
 # Handle the last interval with inclusive bounds
 str = c(str, paste(freqs$breaks[8], "$\\le x \\le $", freqs$breaks[9]))
+<<<<<<< HEAD
 df = data.frame(Class=str, Index=freqs$counts)
 library(knitr)
 library(kableExtra)
 kable(df, "latex", align="c", escape = F, caption="Hint") %>%
   kable_styling(latex_options = "hold_position")
+=======
+
+relative_freq = freqs$counts / sum(freqs$counts)
+cum_freq = cumsum(relative_freq)
+
+df = data.frame(Class=str, Index=freqs$counts, 
+                "Relative Frequency"=relative_freq, "Cumulative Frequency"=cum_freq)
+library(knitr)
+library(kableExtra)
+kable(df, "latex", align="c", escape = F, caption="Frequency Table") %>%
+kable_styling(latex_options = "hold_position")
+>>>>>>> 5b4146ed09155bdef06b4ece52c098b7217fb2f9
 ```
 
 $~$
