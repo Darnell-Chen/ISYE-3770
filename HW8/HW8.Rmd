@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ***a)*** A $z$-score of 2.14 occurs when the lower tail is 0.9838 and the upper tail is 0.0162. Thus our confidence level is simply $1 - 2(0.0162) = 0.9676$.
 
-***b)*** Since $\bar{x} - 2.49 \frac{\sigma}{\sqrt{x}}$
+***b)*** Assuming that there
 
 ***c)*** A z-score of $1.85$ has a lower tail probability of 0.9678 and upper tail of 0.0322. Thus our confidence level is simply $1-2(0.0322) = 0.9356$.
 
@@ -82,7 +82,7 @@ library(nortest)
 ad.test(speedups)
 ```
 
-***b)*** The mean and standard deviation of our data is:\\
+***b)*** The mean and standard deviation of our data is:
 
 $$
 \begin{aligned}
@@ -94,11 +94,12 @@ $$
 
 $$
 \begin{aligned}
-\sigma &= \sqrt{\frac{\sum_{i=0}^n (x_i - \bar{x})}{n-1}}\\
+\sigma &= \sqrt{\frac{\sum_{i=0}^n (x_i - \bar{x})^2}{n-1}}\\
 &= \sqrt{\frac{2.2478}{12}}\\
 &\approx 0.4328017
 \end{aligned}
 $$
+
 A two-sided confidence interval of 95% means we're looking at $z_{0.025} = 1.96$. So we get:
 
 $$
@@ -110,9 +111,68 @@ $$
 
 Thus, our 95% CI is $[4.07794831584, 4.54849568416]$.
 
-***c)*** A single-sided confidence interval of 95% means we're looking at $z_{0.05} = 1.64$.
+***c)*** A single-sided lower bound confidence interval of 95% means we're looking at $z_{0.05} = 1.64$, so we get:
+
+$$
+\begin{aligned}
+\bar{x} - z_{0.05}\frac{\sigma}{\sqrt{n}} &= 4.313222 - 1.64\frac{0.4328017}{\sqrt{13}}\\
+&= 4.313222 - 0.196861654092\\
+&\approx 4.11636034591
+\end{aligned}
+$$
+
+Thus, our interval for the lower bound confidence interval is $[4.11636034591, \infty)$
 
 ```{r}
 mean(speedups)
 sd(speedups)
 ```
+
+## 8.3.3
+
+Using the QQ Plot below, we can see that the data is normally distributed as it follows our normal line.
+
+```{r}
+temps <- c(23.3, 21.7, 21.6, 21.7, 21.3, 20.7, 20.9, 20.1)
+
+qqnorm(temps)
+qqline(temps, col="red")
+```
+
+To calculate mean and standard deviation, we simply find:\
+
+$$
+\begin{aligned}
+\bar{x} &= \frac{\sum_{i=0}^n x_i}{n}\\
+&= \frac{171.3}{8}\\
+&= 21.4125
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+\sigma &= \sqrt{\frac{\sum_{i=0}^n (x_i - \bar{x})^2}{n-1}}\\
+&= \sqrt{\frac{6.26875}{7}}\\
+&\approx 0.9463275
+\end{aligned}
+$$ A 95% CI (assuming it's two-sided confidence interval) will have $z_{0.025} = 1.96$. Thus to find our interval, we simply find:
+
+$$
+\begin{aligned}
+\bar{x} \pm z_{0.025}\frac{\sigma}{\sqrt{n}} &= 21.4125 \pm 1.96\frac{0.9463275}{\sqrt{8}}\\
+&= 21.4125 \pm 0.655771500624
+\end{aligned}
+$$
+
+Thus our 95% CI is [20.75674, 22.06826].
+
+```{r}
+mean(temps)
+sd(temps)
+mean(temps) - qnorm(.975) * sd(temps) / sqrt(length(temps))
+mean(temps) + qnorm(.975) * sd(temps) / sqrt(length(temps))
+```
+
+## 8.4.1
+
+***a)***
