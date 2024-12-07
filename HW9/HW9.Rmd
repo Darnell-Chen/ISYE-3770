@@ -1,0 +1,172 @@
+---
+title: "HW9"
+author: "Darnell Chen"
+date: "2024-11-23"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 9.1.10
+
+a)  We want to find:
+
+$$
+\begin{aligned}
+\alpha &= P(\text{reject} | H_0 \text{ is true})\\
+&= P(\bar{X} \leq 4.85) + P(\bar{X} \geq 5.15)
+\end{aligned}
+$$
+
+Given that $H_0: \mu = 5$, we get $\frac{\bar{X} - \mu}{\frac{\sigma}{\sqrt{n}}} = \frac{4.85 - 5}{\frac{0.25}{\sqrt{8}}} \approx -1.69706$.
+
+So we're thus solving for $P(Z \leq -1.69706) + P(Z \geq 1.69706)$, which is simply $2P(Z \leq -1.69706) \approx 0.08968532$.
+
+Thus, $\alpha = 0.08968532$
+
+$~$
+
+b)  The power is the probability of rejecting $H_0$ given that the alternative hypothesis: $H_1: \mu = 5.1$ is true. Thus, we're solving for $P(\bar{X} \leq 4.85) + P(\bar{X} \geq 5.15)$ with $\mu = 5.1$.
+
+Here, we'll normalized $\bar{X} = 4.85$, the lower bound to find $P(\bar{X} \leq 4.85) + P(\bar{X} \geq 5.15) ~=~ 2P(\bar{X} \leq 4.85)$
+
+$\frac{\bar{X} -\mu}{\frac{\sigma}{\sqrt{n}}} = \frac{4.85 - 5.1}{\frac{0.25}{\sqrt{8}}} \approx -2.82843$
+
+We then get $P(Z \leq -2.82843) = 0.0023388$, thus $2(Z \leq -2.82843) = 0.004677693$.
+
+Thus, the power of the test is $0.004677693$.
+
+```{r}
+2 * pnorm(-1.69706)
+2 * pnorm(-2.82843)
+```
+
+$~$
+
+## 9-23
+
+Given are given $H_0: \mu = 5$.
+
+a)  $5.2 > 5$, so we'll take it as the upper bound. Thus, we're looking for $P(\frac{\bar{X} - 5}{\frac{0.25}{\sqrt{8}}} \geq \frac{5.2 - 5}{\frac{0.25}{\sqrt{8}}})$.
+
+We get $\frac{5.2 - 5}{\frac{0.25}{\sqrt{8}}} = 2.26274$, and $P(Z > 2.26274) \approx 0.0118258$.
+
+Since the CI is two-sided, our p-value is thus $2P(Z > 1.13137) \approx 0.02365172$
+
+$~$
+
+b)  $4.7 < 5$, so we take the observed statistic as the lower bound. Thus, we're looking for $P(\frac{\bar{X} - 5}{\frac{0.25}{\sqrt{8}}} \leq \frac{4.7 - 5}{\frac{0.25}{\sqrt{8}}})$.
+
+We get $\frac{4.7 - 5}{\frac{0.25}{\sqrt{8}}} = -3.394112$, and $P(Z < -3.394112) \approx 0.0003442576$.
+
+Since the CI is two-sided, our p-value is thus $2P(Z < -3.394112) \approx 0.0003442576$
+
+$~$
+
+c)  $5.1 > 5$, so we'll take it as the upper bound. Thus, we're looking for $P(\frac{\bar{X} - 5}{\frac{0.25}{\sqrt{8}}} \geq \frac{5.1 - 5}{\frac{0.25}{\sqrt{8}}})$.
+
+We get $\frac{5.1 - 5}{\frac{0.25}{\sqrt{8}}} = 1.131371$, and $P(Z > 1.131371) \approx 0.257899$.
+
+Since the CI is two-sided, our p-value is thus $2P(Z > 1.13137) = 1.742101$
+
+```{r}
+2 * (1 - pnorm(2.26274))
+2 * pnorm(-3.394112)
+2 * (1 - pnorm(1.131371))
+```
+
+$~$
+
+## 9.2.6
+
+a)  Our $t_0 = \frac{2.78 - 3}{\frac{0.9}{\sqrt{15}}} = -0.9467293$
+
+Since the interval is two-sided, our p-value for this test statistic is $2 \times P(t_{14} > 0.9467293)$, which is approximately 0.3598322.
+
+Since the p-value is greater than our $\alpha$ (0.3598322 \> 0.05), we fail to reject the null hypothesis $H_0$.
+
+b)  $power = P(Reject~H_0~ |~ H_1~ \text{is true})$ is what we're looking for. We will retrieve the upper and lower critical regions using the fact that we know $\alpha = 0.05$ and $H_0 = 3$
+
+$1.96 = \frac{\bar{X} - 3}{\frac{0.9}{\sqrt{15}}}$, thus $\bar{X} \approx 3.45546$ for the upper critical region.
+
+$-1.96 = \frac{\bar{X} - 3}{\frac{0.9}{\sqrt{15}}}$, thus $\bar{X} \approx 2.54454$ for the lower critical region.
+
+```{r}
+-0.22/(0.9/sqrt(15))
+2 * pt(-0.946729, 15-1)
+```
+
+## 9.3.8
+
+a)  $H_0: \mu_0 = 25$, and our calculated mean is 26.035. We can then calculate our test statistic:
+
+$t_0 = \frac{26.035 - 25}{\frac{4.784765}{\sqrt{20}}} \approx 0.96737$
+
+Using our p-test function, we get that our p-value is $\approx 0.1727562$. Since this is larger than our $\alpha$, we fail to reject our null hypothesis.
+
+b)  Since our rainfall roughly matches the qqline, we can say that its normally distributed.
+
+c) Constructing Our CI:
+
+$z = \bar{x} + z_{0.01\frac{\sigma}{\sqrt{n}}} = 26.035 + 2.33\frac{4.784765}{\sqrt{20}} \approx 28.52788$
+
+Since this upper bound is larger than 25, we fail to reject our null hypothesis.
+
+
+```{r}
+rainfall <- c(18.0, 30.7, 19.8, 27.1, 22.3, 18.8, 31.8, 
+              23.4, 21.2, 27.9, 31.9, 27.1, 25.0, 24.7, 
+              26.9, 21.8, 29.2, 34.8, 26.7, 31.6)
+
+mean(rainfall)
+sd(rainfall)
+pt(0.96737, 20-1, lower.tail = FALSE)
+
+qqnorm(rainfall)
+qqline(rainfall)
+```
+
+$~$
+
+## 9.4.3
+
+s = 0.09, $\sigma$ = 0.75, $\alpha$ = 0.05
+
+$~$
+
+a)  $\chi^2_0 = \frac{(n-1)s^2}{\sigma_0^2} = \frac{(17-1)0.09^2}{0.75^2} = 0.2304$
+
+Our p-value is $\approx 1$, which is greater than our $alpha$, thus, we fail to reject the null hypothesis.
+
+$~$
+
+b)  We want to create an CI where: 
+
+$\sigma = \sqrt{\frac{(17-1)(0.09^2)}{\chi^2_{1-0.05, 17-1}}} = \sqrt{\frac{(17-1)(0.09^2)}{26.296}} \approx 0.070203$
+
+
+```{r}
+pchisq(0.2304, 16, lower.tail = FALSE)
+```
+
+$~$
+
+## 9.5.4
+
+a)  This is a binomial statistic with a large sample, therefore, our test statistic will be:
+
+$z_0 = \frac{\hat{p}-p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}} = \frac{\frac{117}{484}-(0.5)}{\sqrt{\frac{0.5(1 - 0.5)}{484}}} \approx -11.363636$
+
+$p-val = 2 \cdot P(Z < -11.363636) \approx 0$.
+
+Since our p-value is so much smaller than our $alpha=0.05$, thus we reject our null hypothesis made by Fortune.
+
+$~$
+
+b)  To construct a two-sided CI on p, we want:
+
+$\hat{p} \pm z_{0.025} \cdot \sqrt{\frac{\hat{p} (1-\hat{p})}{n}} = \frac{117}{484} \pm 1.96 \cdot \sqrt{\frac{\frac{117}{484}(1-\frac{117}{484})}{484}}$
+
+Our upper bound is 0.279878 and our lower bound is 0.203593. Since the CI does not contain 0.5, we thus reject $H_0$.
